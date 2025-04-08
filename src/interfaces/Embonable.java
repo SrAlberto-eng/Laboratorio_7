@@ -1,8 +1,8 @@
 package interfaces;
 
-import clases.Ficha;
-
 public interface Embonable{
-    public void rotarFicha(int anguloRotacion);
-    public boolean validarEmbonable(Ficha ficha);
+    public boolean embonaCon(int valor);
+    public boolean embonaConIzquierda(int valor);
+    public boolean embonaConDerecha(int valor);
+    public void invertirOrientacion();
 }
