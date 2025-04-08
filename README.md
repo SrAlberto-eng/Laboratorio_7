@@ -14,7 +14,7 @@ Reglas:
 Requerimientos Funcionales
   - Crear 28 fichas únicas al inicio.
   - Barajar fichas y repartir 7 a cada jugador.
-  - Permitir rotar una ficha (0°, 90°, -90°, 180°, -180°).
+  - Permitir rotar una ficha.
   - Verificar si una ficha puede colocarse en el tablero ().
   - Alternar turnos entre jugadores.
   - Finalizar la partida cuando un jugador se quede sin fichas o no haya movimientos válidos.
