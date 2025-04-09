@@ -3,13 +3,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Jugador {
-    private String nombre;
+    private final String nombre;
     private List<Ficha> mano;
     private int score;
 
     public Jugador(String nombre) {
         this.nombre = nombre;
-        mano = new ArrayList<Ficha>();
+        mano = new ArrayList<>();
         score = 0;
     }
 
@@ -25,6 +25,8 @@ public class Jugador {
         score += puntos;
     }
 
+    public void reducirScore(int puntos) { score -= puntos; }
+
     public void comerFicha(Ficha ficha){
         mano.add(ficha);
     }
@@ -34,7 +36,20 @@ public class Jugador {
             return null;
 
 
-       return mano.remove(posicion-1);
+       return mano.get(posicion-1);
+    }
+
+    public int getMulaMasGrande(){
+        int valor = 0;
+
+        for(Ficha ficha: mano){
+            if(ficha.esMula()){
+                if(ficha.getIzquierda() > valor)
+                    valor = ficha.getIzquierda();
+            }
+        }
+
+        return valor;
     }
 
     public void setMano(List<Ficha> mano){ this.mano = mano; }

@@ -1,10 +1,7 @@
 package interfaces;
-
+import clases.Jugador;
 public interface ManejarTurno {
-    public void iniciarTurno();
-    public void siguienteJugador();
-    public void iniciarTiempo(int segundos);
-    public void terminarTiempo();
-    public void terminarJuego();
-    public void terminarTurno();
+    public void primerTurno(Jugador jugador1, Jugador jugador2);
+    public void pasarTurno();
+    public void hacerJugada();
 }
