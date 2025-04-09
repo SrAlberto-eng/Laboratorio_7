@@ -37,15 +37,17 @@ public class Tablero implements ManejarFichas{
 
 
     public void imprimirTablero() {
+
+        System.out.println("\n\n");
+
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 if (tablero[i][j] != null)
                     System.out.print(tablero[i][j]);
-                else
-                    System.out.print(" ");
             }
-            System.out.println();
         }
+
+        System.out.println("\n\n");
     }
 
 
