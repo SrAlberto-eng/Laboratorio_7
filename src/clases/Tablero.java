@@ -6,12 +6,12 @@ import interfaces.ManejarFichas;
 
 
 public class Tablero implements ManejarFichas{
-    private List<Ficha> fichas;
-    private int filas;
-    private int columnas;
-    private Ficha[][] tablero;
-    private int centroX;
-    private int centroY;
+    private final List<Ficha> fichas;
+    private final int filas;
+    private final int columnas;
+    private final Ficha[][] tablero;
+    private final int centroX;
+    private final int centroY;
     private int extremoIzquierdo;
     private int extremoDerecho;
 
@@ -26,14 +26,6 @@ public class Tablero implements ManejarFichas{
         extremoDerecho = centroX;
         tablero = new Ficha[filas][columnas];
     }
-
-
-    public void mostrarFichas(){
-        for(Ficha ficha : fichas){
-            System.out.println(ficha);
-        }
-    }
-
 
 
     public void imprimirTablero() {

@@ -31,35 +31,14 @@ public class Ficha implements Embonable{
     }
 
     public boolean esMula(){
-        if(valorIzquierda == valorDerecha)
-            return true;
-        return false;
+        return valorIzquierda == valorDerecha;
     }
 
-    private static final char[] UNICODE_DADOS = {
-            '\u2680',
-            '\u2681',
-            '\u2682',
-            '\u2683',
-            '\u2684',
-            '\u2685'};
-
-
-    private String getUnicode(int value) {
-        if (value >= 1 && value <= 6) {
-            return String.valueOf(UNICODE_DADOS[value - 1]);
-        } else {
-            return "\u25A1";
-        }
-    }
 
     public String toString() {
         return switch (orientacion) {
-            case HORIZONTAL -> "["+getUnicode(valorIzquierda) + "|" + getUnicode(valorDerecha)+"]";
-            //case VERTICAL -> getUnicode(valorIzquierda) + "\n" + getUnicode(valorDerecha);
-            case HORIZONTAL_INVERTIDO -> "["+getUnicode(valorIzquierda) + "|" + getUnicode(valorDerecha)+"]";
-            //case VERTICAL_INVERTIDO -> getUnicode(valorDerecha) + "\n" + getUnicode(valorIzquierda);
-            default -> String.format("[ %d | %d ]", valorIzquierda, valorDerecha);
+            case HORIZONTAL ->"[" + valorIzquierda + " | " + valorDerecha + "]";
+            case HORIZONTAL_INVERTIDO ->"[" + valorIzquierda + " | " + valorDerecha + "]";
         };
     }
 

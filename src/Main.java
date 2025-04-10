@@ -1,14 +1,12 @@
-import clases.Ficha;
 import clases.JuegoDomino;
 import clases.Jugador;
 import clases.Tablero;
-import clases.JuegoDomino;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Tablero tablero = new Tablero(30, 30);
+        Tablero tablero = new Tablero(40, 40);
         Jugador jugador1 = new Jugador("Jugador 1");
         Jugador jugador2 = new Jugador("Jugador 2");
         JuegoDomino juego = new JuegoDomino(tablero, jugador1, jugador2);
@@ -19,8 +17,6 @@ public class Main {
         //SE MEZCLAN ALEATORIAMENRTE LAS FICHAS
         tablero.sortearFichas();
 
-        //tablero.mostrarFichas();
-
         //EL MANEJADOR DE FICHAS DEL TABLERO REPARTE LAS FICHAS A CADA JUGADOR
         tablero.repartirFichas(jugador1);
         tablero.repartirFichas(jugador2);
@@ -30,22 +26,28 @@ public class Main {
 
         while(true){
 
-            if(!tablero.hayFichasDisponibles() && juego.manoLimpia()){
+            System.out.println("\n\n" +juego+"\n");
+            System.out.println("Turno de "+ juego.getActivo().getNombre());
+            juego.hacerJugada();
+
+            if(!tablero.hayFichasDisponibles() && !juego.getActivo().tengoEmbonable(tablero)){
                 System.out.println("Ya no hay fichas ni movimientos posibles.");
                 Jugador winner = juego.determinarVencedor();
                 System.out.println(winner.getNombre()+ "gana por puntos!");
                 break;
-            }
-            //SE DETERMINA SI HAY GANADOR SI UN JUGADOR SE QUEDO SIN FICHAS.
-            else if(juego.manoLimpia()){
+            } else if(juego.manoLimpia()){
                 Jugador winner = juego.determinarVencedor();
-                System.out.println("\n"+winner.getNombre()+" Gana!");
-                System.out.println(juego);
+                if(winner != null) {
+                    System.out.println("\n" + winner.getNombre() + " Gana!");
+                    System.out.println(juego);
+                }else{
+					System.out.println("\n\n" +juego+"\n");
+                    System.out.println("Empate!");
+                }
                 break;
             }
-            System.out.println("\n\n" +juego+"\n");
-            System.out.println("Turno de "+ juego.getActivo().getNombre());
-            juego.hacerJugada();
+
+            juego.pasarTurno();
         }
     }
 }

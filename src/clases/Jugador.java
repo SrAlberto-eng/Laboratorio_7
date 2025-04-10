@@ -59,7 +59,7 @@ public class Jugador {
     public void mostrarMano(){
         int i = 0;
         for(Ficha ficha : mano){
-            System.out.print("Ficha " + (++i) + ":");
+            System.out.print("Ficha " + (++i) + ":\n");
             System.out.println(ficha);
         }
     }

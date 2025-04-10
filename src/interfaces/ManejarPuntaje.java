@@ -1,6 +1,7 @@
 package interfaces;
+import clases.Jugador;
 
 public interface ManejarPuntaje {
-    public void aumentarPuntaje(int puntaje);
-    public void disminuirPuntaje(int puntaje);
+    int calcularPuntaje(long tiempoInicio);
+    Jugador determinarVencedor();
 }
