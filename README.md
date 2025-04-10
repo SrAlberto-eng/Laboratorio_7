@@ -36,4 +36,4 @@ Por ejemplo si se quiere embonar una ficha que atributos de la ficha ocupo?(valo
 Si queremos embonar que métodos se deben ejecutar (verificarEmbonar(), embonarFicha())!
 
 Diagrama de clases UML.
-[Editor _ Mermaid Chart-2025-04-06-195102](https://github.com/user-attachments/assets/b793fcbc-7c1b-4455-bc78-cc8a2d776b61)
+![Domino-2025-04-10-173831](https://github.com/user-attachments/assets/9f61247f-8243-45c3-99e2-b1958071f69e)
