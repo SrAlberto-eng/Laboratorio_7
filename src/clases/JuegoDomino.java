@@ -1,23 +1,16 @@
 package clases;
-
 import interfaces.ManejarPuntaje;
 import interfaces.ManejarTurno;
-import clases.Jugador;
-import clases.Ficha;
-import clases.Tablero;
-
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JuegoDomino implements ManejarTurno, ManejarPuntaje {
-    private Tablero tablero;
-    private List<Jugador> jugadores;
+    private final Tablero tablero;
+    private final List<Jugador> jugadores;
     private Jugador jugadorActivo;
     private int index;
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public JuegoDomino(Tablero tablero, Jugador jugador1, Jugador jugador2) {
         this.tablero = tablero;
@@ -39,49 +32,45 @@ public class JuegoDomino implements ManejarTurno, ManejarPuntaje {
         return !jugadorActivo.tengoFichas();
     }
 
-    //ADMINISTRADOR DE PUNTAJE
 
+    //ADMINISTRADOR DE PUNTAJE
+    @Override
     public Jugador determinarVencedor(){
         int score1 = jugadores.get(0).getScore();
         int score2 = jugadores.get(1).getScore();
 
-        if(score1 > score2)
+        if(score1 == score2){
+            return null;
+        }
+        else if(score1 > score2)
             return jugadores.get(0);
         else
             return jugadores.get(1);
     }
 
-	public int calcularPuntaje(long tiempoInicio){
-		long tiempoFinal = System.currentTimeMillis();
-		int tiempoTardado = (int) ((tiempoInicio - tiempoFinal) / 1000);
+    @Override
+    public int calcularPuntaje(long tiempoInicio){
+        long tiempoFinal = System.currentTimeMillis();
+        int tiempoTardado = (int) ((tiempoFinal - tiempoInicio) / 1000);
 
-        if(tiempoTardado > 30)
+        System.out.println("Tardaste " + tiempoTardado + " segundos.");
+
+        if(tiempoTardado <= 10)
+            return 20;
+        else if(tiempoTardado <= 20)
+            return 10;
+        else if(tiempoTardado <= 30)
+            return 5;
+        else
             return 0;
-
-		if(tiempoTardado > 20)
-			return 20;
-		else if(tiempoTardado > 10 && tiempoTardado <= 20)
-			return 10;
-		else
-			return 5;
-	}
-	
-	
-    @Override
-    public void aumentarPuntaje(int puntaje) {
-		jugadorActivo.aumentarScore(puntaje);											
-	}
-
-    @Override
-    public void disminuirPuntaje(int puntaje) {
-		jugadorActivo.reducirScore(puntaje);
-	}
+    }
 
     //ADMINISTRADOR DE TURNOS//
-
     @Override
     public void primerTurno(Jugador jugador1, Jugador jugador2) {
 
+		System.out.println("Inicia quien tenga la ficha doble mas grande.");
+		
         int mulaJugador1 = jugador1.getMulaMasGrande();
         int mulaJugador2 = jugador2.getMulaMasGrande();
 
@@ -92,6 +81,9 @@ public class JuegoDomino implements ManejarTurno, ManejarPuntaje {
         } else {
             jugadorActivo = jugadores.get(0);
         }
+
+		System.out.println("Inicia el "+jugadorActivo.getNombre());
+         index = jugadores.indexOf(jugadorActivo);
     }
 
 
@@ -106,18 +98,17 @@ public class JuegoDomino implements ManejarTurno, ManejarPuntaje {
     @Override
     public void hacerJugada() {
 
-
-        if (!tablero.hayFichasDisponibles()) {
-            System.out.println("Ya no hay fichas disponibles, se pasa turno");
-            this.pasarTurno();
+        if (!tablero.hayFichasDisponibles() && !jugadorActivo.tengoEmbonable(tablero)) {
+            System.out.println("No hay fichas disponibles ni movimientos válidos. Se termina el juego.");
             return;
         }
+
 
 
         if (jugadorActivo.tengoEmbonable(tablero)) {
             tablero.imprimirTablero();
 
-            System.out.println("" + jugadorActivo.getNombre());
+            System.out.println(jugadorActivo.getNombre());
             jugadorActivo.mostrarMano();
 			
 		long tiempoInicio = System.currentTimeMillis();
@@ -153,13 +144,17 @@ public class JuegoDomino implements ManejarTurno, ManejarPuntaje {
                 }
             }
         } else {
-            System.out.println("No tienes fichas embonables.");
-            System.out.println("Come 1 ficha y pasa turno.");
 
-            Ficha ficha = tablero.getFicha();
-            jugadorActivo.comerFicha(ficha);
+            if (!tablero.hayFichasDisponibles()) {
+                System.out.println("No tienes fichas embonables.");
+                System.out.println("Ya no hay fichas para comer, se pasa turno");
+            }else {
+                System.out.println("No tienes fichas embonables.");
+                System.out.println("Come 1 ficha y pasa turno.");
+
+                Ficha ficha = tablero.getFicha();
+                jugadorActivo.comerFicha(ficha);
+            }
         }
-
-        this.pasarTurno();
     }
 }
